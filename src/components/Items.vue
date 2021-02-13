@@ -41,6 +41,11 @@
         </div>
       </b-col>
     </b-row>
+    <b-row v-if="items.length > 0">
+      <b-col>
+        <b-pagination v-model="page" :total-rows="items.length" :per-page="perPage" align="center"></b-pagination>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
