@@ -18,9 +18,9 @@
           class="row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 list-unstyled"
           style="display: flex; flex-wrap: wrap;"
         >
-          <b-col v-for="(item, i) in filteredItems" v-bind:key="i" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
+          <b-col v-for="(item, i) in filteredItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
             <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="deleteItem(item)" @dblclick="openUrl('https://cdn.mbr.pw/' + item)">
-              <b-img v-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" style="max-height: 135px; max-width: 100%;" @dblclick="openUrl('https://cdn.mbr.pw/' + item)"></b-img>
+              <b-img v-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" style="max-height: 135px; max-width: 100%;"></b-img>
               <b-embed v-else type="video" :src="'https://cdn.mbr.pw/' + item" @dblclick="openUrl('https://cdn.mbr.pw/' + item)"></b-embed>
             </b-card>
             <b-form-text class="mt-2 text-break" :title="item" @click="deleteItem(item)">{{ item }}</b-form-text>
@@ -77,7 +77,7 @@ export default {
         response.json().then(json => {
           this.items = json.filter(x => x.endsWith(".png") || x.endsWith(".jpg") || x.endsWith(".jpeg") || x.endsWith(".mp4"));
         }).catch(console.log);
-      }).catch(console.log);
+      }).catch(() => this.items.push("favicon.ico"));
     },
     deleteItem: function(item) {
       if (!this.keys.includes("ControlLeft")) return;
