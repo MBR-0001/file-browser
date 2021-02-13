@@ -19,7 +19,7 @@
           style="display: flex; flex-wrap: wrap;"
         >
           <b-col v-for="(item, i) in filteredItems" v-bind:key="i" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
-            <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="deleteItem(item)">
+            <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="deleteItem(item)" @dblclick="openUrl('https://cdn.mbr.pw/' + item)">
               <b-img v-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" style="max-height: 135px; max-width: 100%;" @dblclick="openUrl('https://cdn.mbr.pw/' + item)"></b-img>
               <b-embed v-else type="video" :src="'https://cdn.mbr.pw/' + item" @dblclick="openUrl('https://cdn.mbr.pw/' + item)"></b-embed>
             </b-card>
