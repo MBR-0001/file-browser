@@ -77,7 +77,10 @@ export default {
         response.json().then(json => {
           this.items = json.filter(x => x.endsWith(".png") || x.endsWith(".jpg") || x.endsWith(".jpeg") || x.endsWith(".mp4"));
         }).catch(console.log);
-      }).catch(() => this.items.push("favicon.ico"));
+      }).catch(e => {
+        console.log(e);
+        this.items.push("favicon.ico");
+      });
     },
     deleteItem: function(item) {
       if (!this.keys.includes("ControlLeft")) return;
