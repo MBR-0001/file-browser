@@ -11,5 +11,5 @@ module.exports = {
   },
   productionSourceMap: false,
   publicPath: "/bucket-items",
-  outputDir: path.resolve(__dirname, "../website/files/bucket-item-manager")
+  outputDir: path.resolve(__dirname, "../files/bucket-item-manager")
 };
