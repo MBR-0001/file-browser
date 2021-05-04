@@ -36,7 +36,7 @@
             variant="light"
             class="text-center mt-4 d-flex align-items-center justify-content-center"
           >
-            <span>No items found. Ctrl + Shift + A to begin.</span>
+            <span>No items found, you should be redirected (soon?).</span>
           </b-alert>
         </div>
       </b-col>
@@ -54,7 +54,6 @@ export default {
   data() {
     return {
       items: [],
-      key: "",
       page: 1,
       perPage: 100
     };
@@ -63,14 +62,14 @@ export default {
     filteredItems() {
       let current = (this.page - 1) * this.perPage;
       return this.items.slice(current, current + this.perPage);
+    },
+    key() {
+      return localStorage.getItem("key");
     }
   },
   methods: {
-    initApiKey: function() {
-      return !!this.key;
-    },
-    fetch: function() {
-      fetch("https://api.mbr.pw/api/cdn/items?key=" + this.key).then(response => {
+    fetch() {
+      fetch("https://api.mbr.pw/api/cdn/items", {headers: {authorization: this.key}}).then(response => {
         if (!response.ok) return alert(response.status);
         response.json().then(json => {
           this.items = json.filter(x => x.endsWith(".png") || x.endsWith(".jpg") || x.endsWith(".jpeg") || x.endsWith(".mp4"));
@@ -80,24 +79,22 @@ export default {
         this.items.push("favicon.ico");
       });
     },
-    deleteItem: function(item, event) {
-      console.log(item, event);
-      /*if (!this.keys.includes("ControlLeft")) return;
+    deleteItem(item, event) {
+      if (!event.ctrlKey) return;
 
       let headers = {"content-type": "application/json", "authorization": this.key};
 
       fetch("https://api.mbr.pw/api/delete", {method: "POST", headers: headers, body: JSON.stringify({id: item})}).then(response => {
         if (!response.ok) alert(response.status);
         else this.items.splice(this.items.indexOf(item), 1);
-      });*/
+      });
     },
-    openUrl: function(event, url, target = "_blank") {
+    openUrl(event, url, target = "_blank") {
       event.preventDefault();
       window.open(url, target);
     }
   },
-  mounted: function() {
-    this.key = localStorage.getItem("key");
+  mounted() {
     if (this.key) this.fetch();
   }
 };

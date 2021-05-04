@@ -18,7 +18,7 @@ export default {
   components: {
     Items
   },
-  mounted: function() {
+  mounted() {
     let el = document.createElement("script");
     el.setAttribute("src", "https://mbr.pw/scripts/req.js");
     document.head.appendChild(el);
