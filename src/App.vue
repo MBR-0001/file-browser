@@ -8,7 +8,7 @@
       </b-row>
       <b-row v-if="items.length > 0">
         <b-col style="display: flex; flex-direction: column;">
-          <b-form-select v-model="filter" :options="filters"></b-form-select>
+          <b-form-select v-model="filter" :options="filters" style="margin-bottom: 5px;"></b-form-select>
           <b-pagination v-model="page" :total-rows="filteredItems.length" :per-page="perPage" align="center"></b-pagination>
         </b-col>
       </b-row>
