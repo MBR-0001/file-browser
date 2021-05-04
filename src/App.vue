@@ -22,6 +22,9 @@
           >
             <b-col v-for="(item, i) in pageItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
               <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
+                <div v-if="!filters[0].value.some(x => item.endsWith('.' + x))" class="custom">
+                  <span style="font-size: xx-large;">{{item}}</span>
+                </div>
                 <b-img v-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" style="max-height: 135px; max-width: 100%;"></b-img>
                 <b-embed v-else type="video" :src="'https://cdn.mbr.pw/' + item"></b-embed>
               </b-card>
@@ -69,7 +72,7 @@ export default {
       perPage: 100,
       filter: null,
       filters: [
-        {value: ["png", "jpg", "jpeg", "mp4", "ico"], text: "Images/videos"},
+        {value: ["png", "jpg", "jpeg", "mp4", "ico", "gif"], text: "Images/videos"},
         {value: [], text: "Other"},
         {value: null, text: "All"}
       ]
@@ -146,5 +149,12 @@ export default {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
+}
+
+.custom {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
