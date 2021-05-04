@@ -12,7 +12,7 @@
           <b-pagination v-model="page" :total-rows="filteredItems.length" :per-page="perPage" align="center"></b-pagination>
         </b-col>
       </b-row>
-      <b-row>
+      <b-row v-if="filteredItems.length > 0">
         <b-col style="margin-top: 10px;">
           <transition-group
             tag="ul"
@@ -39,7 +39,7 @@
         </b-col>
       </b-row>
       <b-row v-else>
-        <div class="text-center text-danger my-2">
+        <div class="text-center text-primary my-2" style="margin: 0 auto;">
           <b-spinner class="align-middle"></b-spinner>
           <strong>Loading...</strong>
         </div>
