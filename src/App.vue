@@ -23,9 +23,9 @@
             <b-col v-for="(item, i) in pageItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
               <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
                 <div v-if="!filters[0].value.some(x => item.endsWith('.' + x))" class="custom">
-                  <span style="font-size: xx-large;">{{item}}</span>
+                  <span style="font-size: xx-large;">{{getExt(item)}}</span>
                 </div>
-                <b-img v-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" style="max-height: 135px; max-width: 100%;"></b-img>
+                <b-img v-else-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" class="image"></b-img>
                 <b-embed v-else type="video" :src="'https://cdn.mbr.pw/' + item"></b-embed>
               </b-card>
               <b-form-text class="mt-2 text-break" :title="item" @click="e => deleteItem(item, e)">{{ item }}</b-form-text>
@@ -111,6 +111,10 @@ export default {
         this.items.push("favicon.ico");
       });
     },
+    getExt(filename) {
+      let temp = filename.split(".");
+      return "." + temp[temp.length - 1];
+    },
     deleteItem(item, event) {
       if (!event.ctrlKey) return;
 
@@ -156,5 +160,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.image {
+  max-height: 135px;
+  max-width: 100%;
 }
 </style>
