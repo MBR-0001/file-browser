@@ -9,7 +9,7 @@
       <b-row v-if="items.length > 0">
         <b-col style="display: flex; flex-direction: column;">
           <b-form-select v-model="filter" :options="filters"></b-form-select>
-          <b-pagination v-model="page" :total-rows="items.length" :per-page="perPage" align="center"></b-pagination>
+          <b-pagination v-model="page" :total-rows="filteredItems.length" :per-page="perPage" align="center"></b-pagination>
         </b-col>
       </b-row>
       <b-row>
@@ -31,25 +31,18 @@
               <b-form-text class="mt-2 text-break" :title="item" @click="e => deleteItem(item, e)">{{ item }}</b-form-text>
             </b-col>
           </transition-group>
-          <div aria-live="polite" aria-atomic="true">
-            <b-alert
-              :show="pageItems.length === 0"
-              :role="null"
-              :aria-live="null"
-              :aria-atomic="null"
-              fade
-              variant="light"
-              class="text-center mt-4 d-flex align-items-center justify-content-center"
-            >
-              <span>No items found, you should be redirected (soon?).</span>
-            </b-alert>
-          </div>
         </b-col>
       </b-row>
       <b-row v-if="items.length > 0">
         <b-col>
-          <b-pagination v-model="page" :total-rows="items.length" :per-page="perPage" align="center"></b-pagination>
+          <b-pagination v-model="page" :total-rows="filteredItems.length" :per-page="perPage" align="center"></b-pagination>
         </b-col>
+      </b-row>
+      <b-row v-else>
+        <div class="text-center text-danger my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
       </b-row>
     </b-container>
   </div>
@@ -99,17 +92,17 @@ export default {
       return localStorage.getItem("key");
     }
   },
+  watch: {
+    filter() {
+      this.page = 1;
+    }
+  },
   methods: {
     fetch() {
       fetch("https://api.mbr.pw/api/cdn/items", {headers: {authorization: this.key}}).then(response => {
         if (!response.ok) return alert(response.status);
-        response.json().then(json => {
-          this.items = json;
-        }).catch(console.log);
-      }).catch(e => {
-        console.log(e);
-        this.items.push("favicon.ico");
-      });
+        response.json().then(json => this.items = json).catch(console.log);
+      }).catch(console.log);
     },
     getExt(filename) {
       let temp = filename.split(".");
