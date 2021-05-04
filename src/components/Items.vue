@@ -19,11 +19,11 @@
           style="display: flex; flex-wrap: wrap;"
         >
           <b-col v-for="(item, i) in filteredItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
-            <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="deleteItem(item)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
+            <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
               <b-img v-if="!item.endsWith('mp4')" :src="'https://cdn.mbr.pw/' + item" style="max-height: 135px; max-width: 100%;"></b-img>
               <b-embed v-else type="video" :src="'https://cdn.mbr.pw/' + item"></b-embed>
             </b-card>
-            <b-form-text class="mt-2 text-break" :title="item" @click="deleteItem(item)">{{ item }}</b-form-text>
+            <b-form-text class="mt-2 text-break" :title="item" @click="e => deleteItem(item, e)">{{ item }}</b-form-text>
           </b-col>
         </transition-group>
         <div aria-live="polite" aria-atomic="true">
@@ -55,7 +55,6 @@ export default {
     return {
       items: [],
       key: "",
-      keys: [],
       page: 1,
       perPage: 100
     };
@@ -68,7 +67,6 @@ export default {
   },
   methods: {
     initApiKey: function() {
-      this.key = prompt("Enter your API key: ");
       return !!this.key;
     },
     fetch: function() {
@@ -82,15 +80,16 @@ export default {
         this.items.push("favicon.ico");
       });
     },
-    deleteItem: function(item) {
-      if (!this.keys.includes("ControlLeft")) return;
+    deleteItem: function(item, event) {
+      console.log(item, event);
+      /*if (!this.keys.includes("ControlLeft")) return;
 
       let headers = {"content-type": "application/json", "authorization": this.key};
 
       fetch("https://api.mbr.pw/api/delete", {method: "POST", headers: headers, body: JSON.stringify({id: item})}).then(response => {
         if (!response.ok) alert(response.status);
         else this.items.splice(this.items.indexOf(item), 1);
-      });
+      });*/
     },
     openUrl: function(event, url, target = "_blank") {
       event.preventDefault();
@@ -98,21 +97,8 @@ export default {
     }
   },
   mounted: function() {
-    let keydown = e => {
-      if (!this.keys.includes(e.code)) this.keys.push(e.code);
-
-      if (this.keys.includes("ShiftLeft") && this.keys.includes("ControlLeft") && this.keys.includes("KeyA") && this.items.length < 1) {
-        this.keys = [];
-        if (this.initApiKey()) this.fetch();
-      }
-    };
-
-    let keyup = e => {
-      if (this.keys.includes(e.code)) this.keys.splice(this.keys.indexOf(e.code), 1);
-    };
-
-    window.addEventListener("keydown", keydown);
-    window.addEventListener("keyup", keyup);
+    this.key = localStorage.getItem("key");
+    if (this.key) this.fetch();
   }
 };
 </script>
