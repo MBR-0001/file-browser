@@ -1,5 +1,3 @@
-const path = require("path");
-
 module.exports = {
   chainWebpack: config => {
     config
@@ -10,6 +8,5 @@ module.exports = {
       });
   },
   productionSourceMap: false,
-  publicPath: "/bucket-items",
-  outputDir: path.resolve(__dirname, "../files/bucket-item-manager")
+  publicPath: "/bucket-items"
 };
