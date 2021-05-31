@@ -23,3 +23,12 @@ jobs:
 
     - name: Run build
       run: npm run build
+      
+    - name: Zip build
+      uses: vimtor/action-zip@v1
+      with:
+        files: dist
+        dest: build.zip
+        
+    - name: Log
+      run: ls && ls dist
