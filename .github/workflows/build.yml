@@ -36,5 +36,6 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         artifacts: build.zip
+        prerelease: true
         tag: ${{ env.version }}
         token: ${{ secrets.GITHUB_TOKEN }}
