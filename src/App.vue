@@ -20,8 +20,8 @@
             class="row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 list-unstyled"
             style="display: flex; flex-wrap: wrap;"
           >
-            <b-col v-for="(item, i) in pageItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
-              <b-card bg-variant="light" class="px-2 py-2 border-0 no-highlight" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
+            <b-col v-for="(item, i) in pageItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center no-highlight">
+              <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
                 <div v-if="!filters[0].value.some(x => item.endsWith('.' + x))" class="custom">
                   <span style="font-size: xx-large;">{{getExt(item)}}</span>
                 </div>
