@@ -21,7 +21,7 @@
             style="display: flex; flex-wrap: wrap;"
           >
             <b-col v-for="(item, i) in pageItems" v-bind:key="i + 1" tag="li" class="flip-icon-list-icon d-inline-flex flex-column mb-2 text-center">
-              <b-card bg-variant="light" class="px-2 py-2 border-0" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
+              <b-card bg-variant="light" class="px-2 py-2 border-0 no-highlight" no-body style="height: 150px;" @click="e => deleteItem(item, e)" @dblclick="e => openUrl(e, 'https://cdn.mbr.pw/' + item)">
                 <div v-if="!filters[0].value.some(x => item.endsWith('.' + x))" class="custom">
                   <span style="font-size: xx-large;">{{getExt(item)}}</span>
                 </div>
@@ -158,5 +158,9 @@ export default {
 .image {
   max-height: 135px;
   max-width: 100%;
+}
+
+.no-highlight {
+  user-select: none;
 }
 </style>
