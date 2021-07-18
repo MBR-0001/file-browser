@@ -1,4 +1,4 @@
-# bucket-item-manager
+# file-browser
 
 ## Project setup
 ```

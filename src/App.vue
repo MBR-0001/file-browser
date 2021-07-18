@@ -3,7 +3,7 @@
     <b-container fluid>
       <b-row>
         <b-col>
-          <h1>Bucket Item Manager</h1>
+          <h1>File Browser</h1>
         </b-col>
       </b-row>
       <b-row v-if="items.length > 0">

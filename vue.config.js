@@ -3,10 +3,10 @@ module.exports = {
     config
       .plugin("html")
       .tap(args => {
-        args[0].title = "Bucket Item Manager";
+        args[0].title = "File Browser";
         return args;
       });
   },
   productionSourceMap: false,
-  publicPath: "/bucket-items"
+  publicPath: "/file-browser"
 };
