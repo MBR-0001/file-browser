@@ -66,6 +66,8 @@ export default {
       filter: null,
       filters: [
         {value: ["png", "jpg", "jpeg", "mp4", "ico", "gif"], text: "Images/videos"},
+        {value: ["png", "jpg", "jpeg", "ico"], text: "Images"},
+        {value: ["mp4", "gif"], text: "videos"},
         {value: [], text: "Other"},
         {value: null, text: "All"}
       ]
